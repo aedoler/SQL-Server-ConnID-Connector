@@ -17,30 +17,33 @@
 package com.idm.polygon;
 
 import com.idm.polygon.utilities.Logger;
+import org.identityconnectors.common.security.GuardedString;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
-import org.identityconnectors.framework.common.objects.Attribute;
-import org.identityconnectors.framework.common.objects.ObjectClass;
-import org.identityconnectors.framework.common.objects.OperationOptions;
-import org.identityconnectors.framework.common.objects.Uid;
+import org.identityconnectors.framework.common.objects.*;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
-import org.identityconnectors.framework.spi.operations.CreateOp;
-import org.identityconnectors.framework.spi.operations.DeleteOp;
-import org.identityconnectors.framework.spi.operations.TestOp;
-import org.identityconnectors.framework.spi.operations.UpdateOp;
+import org.identityconnectors.framework.spi.operations.*;
+import org.identityconnectors.framework.common.objects.Schema;
+import sun.security.util.Password;
 
 import java.sql.SQLException;
 import java.util.Set;
 
 @ConnectorClass(displayNameKey = "mssqldb.connector.display", configurationClass = MssqldbConfiguration.class)
-public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp {
+public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp, SchemaOp {
 
     private static final Logger LOG = new Logger();
 
 
     private MssqldbConfiguration configuration;
     private MssqldbConnection connection;
+
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String PASS_EXP = "passExpires";
+    public static final String STATUS = "status";
+    public static final String PASS = "password";
 
     @Override
     public Configuration getConfiguration() {
@@ -77,6 +80,12 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
     @Override
     public Uid create(ObjectClass objectClass, Set<Attribute> set, OperationOptions operationOptions) {
+        LOG.write("Attempting to create user.");
+        Uid uidResult = null;
+
+        if (objectClass == null) {
+            throw new ConnectorException("Unable to create new user, no object class was specified.");
+        }
         return null;
     }
 
@@ -112,5 +121,35 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     @Override
     public Uid update(ObjectClass objectClass, Uid uid, Set<Attribute> set, OperationOptions operationOptions) {
         return null;
+    }
+
+    @Override
+    public Schema schema() {
+        final SchemaBuilder builder = new SchemaBuilder(MssqldbConnector.class);
+
+        buildAccountObjectClass(builder);
+        buildGroupObjectClass(builder);
+
+        Schema schema = builder.build();
+
+        return schema;
+    }
+
+    public void buildAccountObjectClass(SchemaBuilder builder) {
+        ObjectClassInfoBuilder objectClassBuilder = new ObjectClassInfoBuilder();
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.define(FIRST_NAME).setRequired(true).build());
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(LAST_NAME));
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS_EXP, Boolean.TYPE));
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS));
+
+        builder.defineObjectClass(objectClassBuilder.build());
+    }
+
+    public void buildGroupObjectClass(SchemaBuilder builder) {
+        ObjectClassInfoBuilder objectClassInfoBuilder = new ObjectClassInfoBuilder();
+        objectClassInfoBuilder.setType(ObjectClass.GROUP_NAME);
+
+        builder.defineObjectClass(objectClassInfoBuilder.build());
     }
 }
