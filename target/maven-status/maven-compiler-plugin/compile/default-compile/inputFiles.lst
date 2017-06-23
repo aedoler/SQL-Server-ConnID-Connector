@@ -1,5 +1,6 @@
-C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\deloitte\idm\MssqldbConnection.java
-C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\deloitte\idm\package-info.java
-C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\deloitte\idm\MssqldbConfiguration.java
-C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\deloitte\idm\Utilities\Logger.java
-C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\deloitte\idm\MssqldbConnector.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\MssqldbConnector.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\utilities\Logger.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\MssqldbConfiguration.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\utilities\Utilities.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\MssqldbConnection.java
+C:\Users\adoler\Desktop\Projects\IAAS\Configuration\connectors\mssql-connector\polygon\connector-mssqldb\src\main\java\com\idm\polygon\package-info.java

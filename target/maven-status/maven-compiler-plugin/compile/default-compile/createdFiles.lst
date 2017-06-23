@@ -1,4 +1,6 @@
-com\deloitte\idm\MssqldbConnector.class
-com\deloitte\idm\Utilities\Logger.class
-com\deloitte\idm\MssqldbConnection.class
-com\deloitte\idm\MssqldbConfiguration.class
+com\idm\polygon\utilities\Logger.class
+com\idm\polygon\utilities\Utilities.class
+com\idm\polygon\MssqldbConnection.class
+com\idm\polygon\utilities\Utilities$1.class
+com\idm\polygon\MssqldbConfiguration.class
+com\idm\polygon\MssqldbConnector.class
