@@ -1,0 +1,4 @@
+com\deloitte\idm\MssqldbConnector.class
+com\deloitte\idm\Utilities\Logger.class
+com\deloitte\idm\MssqldbConnection.class
+com\deloitte\idm\MssqldbConfiguration.class
