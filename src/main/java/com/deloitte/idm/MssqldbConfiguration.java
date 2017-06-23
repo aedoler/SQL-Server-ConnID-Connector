@@ -25,10 +25,12 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     private static final Logger LOG = new Logger();
 
-    private String host;
-    private String dbName;
-    private String user;
-    private String password;
+    //Variables are public currently for testing only
+    public String host;
+    public String dbName;
+    public String user;
+    public String password;
+    public String port;
 
     @Override
     public void validate() {
@@ -37,7 +39,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     public MssqldbConfiguration() {}
 
-    @ConfigurationProperty(order=2, displayMessageKey = "dbname.display",
+    @ConfigurationProperty(order=3, displayMessageKey = "dbname.display",
             helpMessageKey = "dbname.help", required = true)
 
     public String getDbName() {return dbName;}
@@ -46,7 +48,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
         this.dbName = dbName;
     }
 
-    @ConfigurationProperty(order=3, displayMessageKey = "user.display",
+    @ConfigurationProperty(order=4, displayMessageKey = "user.display",
             helpMessageKey = "user.help", required = true)
 
     public String getUser() {return user;}
@@ -55,7 +57,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
         this.user = user;
     }
 
-    @ConfigurationProperty(order=4, displayMessageKey = "password.display",
+    @ConfigurationProperty(order=5, displayMessageKey = "password.display",
             helpMessageKey = "password.help", required = true)
 
     public String getPassword() {return password;}
@@ -71,6 +73,15 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    @ConfigurationProperty(order=2, displayMessageKey = "port.display",
+            helpMessageKey = "port.help", required = true)
+
+    public String getPort() {return port;}
+
+    public void setPort(String port) {
+        this.port = port;
     }
 
 }

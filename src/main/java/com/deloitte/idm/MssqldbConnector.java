@@ -88,7 +88,13 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     @Override
     public void test() {
         LOG.write("Testing database connection...");
-        connection.disconnect();
+
+        try {
+            connection.disconnect();
+        }
+        catch (Exception e) {
+            LOG.write(e.toString());
+        }
 
         try {
             connection.testConnection();

@@ -42,8 +42,10 @@ public class MssqldbConnection {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection= DriverManager.getConnection(
-                    "jdbc:sqlserver://"+configuration.getHost()+";databaseName="+configuration.getDbName()+"," +
+                    "jdbc:sqlserver://"+configuration.getHost()+":"+configuration.getPort()+";databaseName="+configuration.getDbName()+"," +
                             configuration.getUser()+","+configuration.getPassword());
+
+            LOG.write("Connected to database : "+connection.toString());
         }
         catch (SQLException e) {
             throw new SQLException("Failed to connect to database.", e.getMessage());
@@ -82,6 +84,15 @@ public class MssqldbConnection {
             connection = connect(configuration);
         }
 
+    }
+
+    public boolean checkAlive() throws SQLException {
+        System.out.println("In checkAlive method. Testing connection...");
+        if (connection.equals(null) || !connection.isValid(10)) {
+            return false;
+        }
+        System.out.println("Connection object is: " + connection.toString());
+        return connection.isValid(10);
     }
 
     public void dispose() {
