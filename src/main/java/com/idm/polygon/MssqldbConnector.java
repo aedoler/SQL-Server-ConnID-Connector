@@ -16,10 +16,12 @@
 
 package com.idm.polygon;
 
+import com.idm.polygon.methods.CreateUser;
 import com.idm.polygon.utilities.Logger;
 import org.identityconnectors.common.security.GuardedString;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 import org.identityconnectors.framework.common.objects.*;
+import org.identityconnectors.framework.common.objects.filter.FilterTranslator;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
@@ -27,11 +29,12 @@ import org.identityconnectors.framework.spi.operations.*;
 import org.identityconnectors.framework.common.objects.Schema;
 import sun.security.util.Password;
 
+
 import java.sql.SQLException;
 import java.util.Set;
 
 @ConnectorClass(displayNameKey = "mssqldb.connector.display", configurationClass = MssqldbConfiguration.class)
-public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp, SchemaOp {
+public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp, SchemaOp, SearchOp {
 
     private static final Logger LOG = new Logger();
 
@@ -86,7 +89,13 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         if (objectClass == null) {
             throw new ConnectorException("Unable to create new user, no object class was specified.");
         }
-        return null;
+
+        try {
+            uidResult = new CreateUser(objectClass, connection, configuration, set).create();
+        } catch (Exception e) {
+            LOG.write("Error creating user." + e.toString());
+        }
+        return uidResult;
     }
 
     @Override
@@ -151,5 +160,30 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         objectClassInfoBuilder.setType(ObjectClass.GROUP_NAME);
 
         builder.defineObjectClass(objectClassInfoBuilder.build());
+    }
+
+    /*
+    @Override
+    public FilterTranslator createFilterTranslator(ObjectClass objectClass, OperationOptions operationOptions) {
+        return null;
+    }
+    */
+
+    @Override
+    public FilterTranslator<FilterWhereBuilder> createFilterTranslator(
+            final ObjectClass oclass, final OperationOptions options) {
+
+        LOG.write("check the ObjectClass");
+        if (oclass == null || (!oclass.equals(ObjectClass.ACCOUNT))) {
+            throw new IllegalArgumentException("Object class is required.");
+        }
+        LOG.write("The ObjectClass is ok");
+        return new DatabaseTableFilterTranslator(this, oclass, options);
+    }
+
+    @Override
+    public void executeQuery(ObjectClass objectClass, Object o, ResultsHandler resultsHandler, OperationOptions operationOptions) {
+        LOG.write("Attempting to execute query...");
+
     }
 }

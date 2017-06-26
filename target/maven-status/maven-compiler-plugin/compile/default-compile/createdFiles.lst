@@ -1,6 +1,8 @@
 com\idm\polygon\utilities\Logger.class
+com\idm\polygon\queries\CreateUserQueryBuilder.class
 com\idm\polygon\utilities\Utilities.class
 com\idm\polygon\MssqldbConnection.class
+com\idm\polygon\methods\CreateUser.class
 com\idm\polygon\utilities\Utilities$1.class
 com\idm\polygon\MssqldbConfiguration.class
 com\idm\polygon\MssqldbConnector.class
