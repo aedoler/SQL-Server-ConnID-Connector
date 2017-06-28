@@ -171,7 +171,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
     @ConfigurationProperty(order=13, displayMessageKey = "groupNameField.display",
             helpMessageKey = "groupNameField.help", required = true)
 
-    public String getGroupNameField() {return passwordField;}
+    public String getGroupNameField() {return groupNameField;}
 
     public void setGroupNameField(String groupNameField) {
         this.groupNameField = groupNameField;

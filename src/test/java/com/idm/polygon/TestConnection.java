@@ -1,6 +1,9 @@
 package com.idm.polygon;
 
+import org.identityconnectors.framework.common.objects.Attribute;
+
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * Created by adoler on 23/6/2017.
@@ -31,6 +34,11 @@ public class TestConnection {
             System.out.println("Test connection sucessfull!");
         }
         return checkConnection;
+    }
+
+    public static void testUser() {
+
+        //Set<Attribute> attrs = ["Attribute": {"Name"="password", Value=[aedoler@gmail.com]}, Attribute: {Name=lastName, Value=[Doler]}, Attribute: {Name=__NAME__, Value=[aedoler@gmail.com]}, Attribute: {Name=firstName, Value=[Alexander]}];
     }
 
 }

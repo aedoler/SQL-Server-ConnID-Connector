@@ -2,8 +2,11 @@ package com.idm.polygon.queries;
 
 import com.idm.polygon.MssqldbConfiguration;
 import com.idm.polygon.utilities.Logger;
+import com.idm.polygon.utilities.Utilities;
 import org.identityconnectors.framework.common.objects.Attribute;
+import org.identityconnectors.framework.common.objects.AttributeUtil;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -39,24 +42,23 @@ public class CreateUserQueryBuilder {
             for (Attribute attr : attrs) {
                 if (attr.getName().equals("firstName")) {
                     query.append(configuration.getFirstNameField());
-                    values.append("'"+attr.getValue()+"'");
+                    values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("lastName")) {
                     query.append(configuration.getLastNameField());
-                    values.append("'"+attr.getValue()+"'");
+                    values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("passExpires")) {
                     query.append(configuration.getPassExpiresField());
-                    values.append("'"+attr.getValue()+"'");
+                    values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("status")) {
                     query.append(configuration.getStatusField());
-                    values.append("'"+attr.getValue()+"'");
-                } else if (attr.getName().equals("password")) {
+                    values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
+                } else if (attr.getName().equals("__PASSWORD__")) {
                     query.append(configuration.getPasswordField());
-                    values.append("'"+attr.getValue()+"'");
+                    values.append("'"+ Utilities.getPlainPassword(AttributeUtil.getPasswordValue(attrs))+"'");
                 } else if (attr.getName().equals("__NAME__")) {
                     counter ++;
                     continue;
                 }
-
                 counter++;
 
                 if (counter == attrs.size()) {

@@ -77,6 +77,26 @@ public class CreateUser {
 
             LOG.write("Attempting to create query..." + query.getQuery());
 
+            //Insert user
+
+            try {
+                stmt.executeUpdate(query.getQuery());
+            }
+            catch (SQLException e) {
+                LOG.write(e.getStackTrace().toString());
+                throw new SQLException(e.getMessage());
+            }
+            catch (Exception e) {
+                LOG.write((e.getStackTrace().toString()));
+                throw new Exception(e.getMessage());
+            }
+
+            finally {
+
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
 
             /*
             try {
