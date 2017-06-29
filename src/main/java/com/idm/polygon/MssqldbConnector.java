@@ -20,25 +20,30 @@ import com.idm.polygon.methods.CreateUser;
 import com.idm.polygon.methods.DeleteUser;
 import com.idm.polygon.methods.UpdateUser;
 import com.idm.polygon.utilities.Logger;
-import org.identityconnectors.common.CollectionUtil;
+import org.identityconnectors.common.StringUtil;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 import org.identityconnectors.framework.common.objects.*;
-import org.identityconnectors.framework.common.objects.filter.Filter;
+import org.identityconnectors.framework.common.objects.filter.AbstractFilterTranslator;
 import org.identityconnectors.framework.common.objects.filter.FilterTranslator;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
+import org.identityconnectors.framework.spi.SearchResultsHandler;
 import org.identityconnectors.framework.spi.operations.*;
 import org.identityconnectors.framework.common.objects.Schema;
 
 
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @ConnectorClass(displayNameKey = "mssqldb.connector.display", configurationClass = MssqldbConfiguration.class)
-public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp, SchemaOp, SearchOp<Filter> {
+public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, UpdateOp, SchemaOp, SearchOp<String> {
 
     private static final Logger LOG = new Logger();
 
@@ -112,11 +117,6 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             LOG.write(e.toString());
             e.printStackTrace();
         }
-
-
-
-
-
     }
 
     @Override
@@ -140,7 +140,6 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                 e1.printStackTrace();
             }
         }
-
     }
 
     @Override
@@ -191,36 +190,116 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         builder.defineObjectClass(objectClassInfoBuilder.build());
     }
 
+
     @Override
-    public FilterTranslator<Filter> createFilterTranslator(ObjectClass objectClass, OperationOptions operationOptions) {
+    public FilterTranslator<String> createFilterTranslator(ObjectClass objectClass, OperationOptions operationOptions) {
         LOG.write("Inside filter translator.....");
-        return new FilterTranslator<Filter>() {
-            @Override
-            public List<Filter> translate(Filter filter) {
-                LOG.write("Filter object is: "+filter.toString());
-                return CollectionUtil.newList(filter);
-            }
+        LOG.write("Operation options: "+operationOptions.toString());
+
+        return new AbstractFilterTranslator<String>() {
+
         };
     }
 
     @Override
-    public void executeQuery(ObjectClass objectClass, Filter filter, ResultsHandler resultsHandler, OperationOptions operationOptions) {
+    public void executeQuery(ObjectClass objectClass, String s, ResultsHandler resultsHandler, OperationOptions operationOptions) {
         LOG.write("Attempting to execute search query....");
+        LOG.write("Parameters received: s: "+s+" ResultsHandler: "+resultsHandler.toString()+" operationOptions: "+operationOptions.toString());
         if (objectClass.equals(ObjectClass.GROUP)) {
             LOG.write("Object class for search query is GROUP.");
+            String getGroupsQuery = "SELECT "+configuration.getGroupKeyField()+", "+configuration.getGroupNameField()+" FROM "+configuration.groupTable+";";
             Statement stmt = null;
+            ResultSet rs = null;
+            List<String> header = new ArrayList<String>();
             try {
                 stmt = connection.getInitializedConnection().createStatement();
                 LOG.write(stmt.toString());
             }
             catch (SQLException e) {
-                LOG.write("Problem obtaining open connection while attempting to create user.");
+                LOG.write("Problem obtaining open connection while attempting to execute GROUPS query.");
             }
+            try {
+                rs = stmt.executeQuery(getGroupsQuery);
+                //take in rs and return ConnectorObject (equal to one record)
+
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+
+                //Create list of headers
+                for (int i = 1; i <= columnCount; i++ ) {
+                    String name = rsmd.getColumnName(i);
+                    header.add(name);
+                }
+                LOG.write("Header values: " + header.toString());
+
+                List<String> record = new ArrayList<String>();
+                while(rs.next()) {
+                    for (int i = 1; i <= columnCount; i++ ) {
+                        record.add(rs.getString(i));
+                    }
+                    ConnectorObject obj = createConnectorObject(header, record);
+                    resultsHandler.handle(obj);
+                    record.clear();
+                }
+
+                /*
+                while (rs.next()) {
+                    LOG.write((rs.getString(1) + "  " + rs.getString(2)+ "  "+rs.getString(3)));
+                    record.add(rs.getString(1));
+                    record.add(rs.getString(2));
+                    record.add(rs.getString(3));
+
+                    ConnectorObject obj = createConnectorObject(record);
+                }
+                */
+            }
+            catch (SQLException e) {
+                LOG.write(e.toString());
+            }
+            catch (Exception e) {
+                LOG.write((e.toString()));
+            }
+            /*
+            SearchResult searchResult = new SearchResult(null, 0, true);
+            ((SearchResultsHandler)resultsHandler).handleResult(searchResult);
+            */
         }
+
     }
 
+    public ConnectorObject createConnectorObject(List<String> header, List<String> record) {
+        ConnectorObjectBuilder builder = new ConnectorObjectBuilder();
 
+        LOG.write("Values received: "+record.toString());
 
+        String columnName = null;
+
+        for (int i = 0; i < record.size(); i++) {
+            String name = header.get(i);
+            String value = record.get(i);
+
+            if (StringUtil.isEmpty(value)) {
+                continue;
+            }
+            if (name.equals(configuration.getGroupKeyField())) {
+                builder.setUid(value);
+                columnName = "uid";
+            }
+            if (name.equals(configuration.getGroupNameField())) {
+                builder.setName(value);
+                columnName = "name";
+            }
+            builder.addAttribute(name, createAtrributeValues(value));
+        }
+        return builder.build();
+    }
+
+    private List<String> createAtrributeValues(String attributeValue) {
+        List<String> values = new ArrayList<String>();
+        values.add(attributeValue);
+
+        return values;
+    }
 
 
     /*

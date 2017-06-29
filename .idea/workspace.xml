@@ -2,31 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="827e37c3-5362-43d8-9392-8f10ffae5a17" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/MsSQLFilterTranslator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/DeleteUser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/SearchGroups.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/DeleteUserQueryBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/UpdateUserQueryBuilder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/MssqldbConfiguration.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/MssqldbConfiguration.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/MssqldbConnector.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/MssqldbConnector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/methods/CreateUser.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/methods/CreateUser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/queries/CreateUserQueryBuilder.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/queries/CreateUserQueryBuilder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/utilities/Utilities$1.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/utilities/Utilities$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/utilities/Utilities.class" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/utilities/Utilities.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/connector-mssqldb-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/connector-mssqldb-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/idm/polygon/TestConnection.class" afterPath="$PROJECT_DIR$/target/test-classes/com/idm/polygon/TestConnection.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/UpdateUser.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/UpdateUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/CreateUserQueryBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/CreateUserQueryBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Utilities.java" afterPath="$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Utilities.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/idm/polygon/TestConnection.java" afterPath="$PROJECT_DIR$/src/test/java/com/idm/polygon/TestConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/idm/polygon/Messages.properties" afterPath="$PROJECT_DIR$/target/classes/com/idm/polygon/Messages.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection/Command line test.html" afterPath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection/Command line test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection/Command line test.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/com.idm.polygon.TestConnection/Command line test.xml" />
@@ -46,22 +31,43 @@
       <file leaf-file-name="MssqldbConnector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="210" column="18" lean-forward="false" selection-start-line="210" selection-start-column="18" selection-end-line="210" selection-end-column="18" />
+            <state relative-caret-position="4264">
+              <caret line="289" column="36" lean-forward="true" selection-start-line="289" selection-start-column="36" selection-end-line="289" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6801#7060#0" expanded="true" />
-                <element signature="e#7059#7060#0" expanded="true" />
+                <element signature="e#7841#7849#0" expanded="true" />
+                <element signature="e#8766#8774#0" expanded="true" />
+                <element signature="e#10964#10972#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="ConnectorObject.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/ConnectorObject.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="79" column="21" lean-forward="false" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+            <state relative-caret-position="170">
+              <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MssqldbConfiguration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1486">
+              <caret line="49" column="24" lean-forward="true" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Messages.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,46 +76,9 @@
       <file leaf-file-name="Logger.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Logger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="136">
               <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeleteUser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/DeleteUser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="56" column="10" lean-forward="false" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractFilterTranslator.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="194" column="9" lean-forward="false" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
-              <folding>
-                <element signature="e#10608#10609#0" expanded="true" />
-                <element signature="e#10635#10636#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MsSQLFilterTranslator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MsSQLFilterTranslator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -117,8 +86,8 @@
       <file leaf-file-name="CreateUser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="61" column="9" lean-forward="true" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+            <state relative-caret-position="697">
+              <caret line="100" column="14" lean-forward="false" selection-start-line="100" selection-start-column="14" selection-end-line="100" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -138,6 +107,7 @@
       <find>system</find>
       <find>getsingle</find>
       <find>uid</find>
+      <find>sear</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,7 +136,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnection.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/idm/polygon/testCreateUserQuery.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/idm/polygon/testCreateUser.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties" />
         <option value="$PROJECT_DIR$/src/test/java/com/idm/polygon/TestConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/UpdateObject.java" />
@@ -174,13 +143,17 @@
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Utilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/UpdateUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MsSQLFilterTranslator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/CreateUserQueryBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/UpdateUserQueryBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/DeleteUserQueryBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/DeleteUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/SQLParam.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbFilterTranslator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/SQLRecord.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Logger.java" />
       </list>
     </option>
@@ -214,8 +187,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -488,13 +460,14 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="filtertranslator&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class&#10;FilterTransla&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/FilterTranslator.class&#10;forge&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_framework_connector_framework_unknown.xml&#10;dbcommon&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml&#10;forgerock&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml&#10;abstractFilterTra&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class&#10;AttributeUtil&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.AttributeUtil&#10;getNameValue&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.Name#getNameValue" />
+    <property name="SearchEverywhereHistoryKey" value="connectorobj&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/ConnectorObjectBuilder.class&#10;connectorO &#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.ConnectorObject&#10;searchresult&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.SearchResult&#10;abstract&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class&#10;resultshandler&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/api/ResultsHandlerConfiguration.class&#10;connectorobject&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.ConnectorObjectBuilder&#10;filtertranslator&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class&#10;FilterTransla&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/FilterTranslator.class&#10;forge&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_framework_connector_framework_unknown.xml&#10;dbcommon&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml&#10;forgerock&#9;FILE&#9;file://C:/Users/adoler/Desktop/Projects/IAAS/Configuration/connectors/mssql-connector/polygon/connector-mssqldb/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml&#10;abstractFilterTra&#9;FILE&#9;jar://C:/Users/adoler/.m2/repository/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class&#10;AttributeUtil&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.AttributeUtil&#10;getNameValue&#9;PSI&#9;JAVA://org.identityconnectors.framework.common.objects.Name#getNameValue" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -777,6 +750,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24597365" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -789,7 +763,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -804,86 +777,15 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4029">
-          <caret line="237" column="14" lean-forward="false" selection-start-line="237" selection-start-column="14" selection-end-line="237" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/UpdateUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/UpdateUserQueryBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="86" column="29" lean-forward="true" selection-start-line="86" selection-start-column="29" selection-end-line="86" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Utilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="69" column="101" lean-forward="false" selection-start-line="69" selection-start-column="101" selection-end-line="69" selection-end-column="101" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="100" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/CreateUserQueryBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="58" column="29" lean-forward="true" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="44" column="33" lean-forward="false" selection-start-line="44" selection-start-column="33" selection-end-line="44" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/DeleteUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="83" column="51" lean-forward="true" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6801#7060#0" expanded="true" />
-            <element signature="e#7059#7060#0" expanded="true" />
+            <element signature="e#7841#7849#0" expanded="true" />
+            <element signature="e#8766#8774#0" expanded="true" />
+            <element signature="e#10964#10972#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -942,7 +844,8 @@
         <state relative-caret-position="748">
           <caret line="44" column="33" lean-forward="false" selection-start-line="44" selection-start-column="33" selection-end-line="44" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="e#5411#5412#0" expanded="true" />
+            <element signature="e#5461#5462#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1001,8 +904,9 @@
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6801#7060#0" expanded="true" />
-            <element signature="e#7059#7060#0" expanded="true" />
+            <element signature="e#7841#7849#0" expanded="true" />
+            <element signature="e#8766#8774#0" expanded="true" />
+            <element signature="e#10964#10972#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1031,22 +935,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/idm/polygon/testCreateUserQuery.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="41" column="41" lean-forward="false" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/Name.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1092,44 +980,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="173" column="60" lean-forward="false" selection-start-line="173" selection-start-column="60" selection-end-line="173" selection-end-column="60" />
-          <folding>
-            <element signature="e#5378#5379#0" expanded="true" />
-            <element signature="e#5428#5429#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__org_forgerock_openicf_connectors_misc_dbcommon_1_1_0_0.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Utilities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1264">
           <caret line="86" column="43" lean-forward="false" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__org_forgerock_openicf_framework_connector_framework_unknown.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__org_forgerock_openicf_framework_connector_framework_unknown.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/queries/CreateUserQueryBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
@@ -1143,18 +1005,16 @@
         <state relative-caret-position="355">
           <caret line="21" column="115" lean-forward="false" selection-start-line="21" selection-start-column="115" selection-end-line="21" selection-end-column="115" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/DeleteUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
+        <state relative-caret-position="782">
           <caret line="56" column="10" lean-forward="false" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1171,7 +1031,7 @@
         <state relative-caret-position="468">
           <caret line="73" column="44" lean-forward="false" selection-start-line="73" selection-start-column="44" selection-end-line="73" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1180,50 +1040,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#272#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="194" column="9" lean-forward="false" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
-          <folding>
-            <element signature="e#10608#10609#0" expanded="true" />
-            <element signature="e#10635#10636#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MsSQLFilterTranslator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="61" column="9" lean-forward="true" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="210" column="18" lean-forward="false" selection-start-line="210" selection-start-column="18" selection-end-line="210" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6801#7060#0" expanded="true" />
-            <element signature="e#7059#7060#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1235,9 +1051,136 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/methods/CreateUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="100" column="14" lean-forward="false" selection-start-line="100" selection-start-column="14" selection-end-line="100" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/idm/polygon/Messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/SQLParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-534">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/ResultsHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/api/ResultsHandlerConfiguration.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#4319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/filter/AbstractFilterTranslator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="194" column="9" lean-forward="false" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbFilterTranslator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1486">
+          <caret line="49" column="24" lean-forward="true" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/SQLRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MsSQLFilterTranslator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/SearchResult.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/ConnectorObjectBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/tirasa/connid/connector-framework/1.4.0.1-SNAPSHOT/connector-framework-1.4.0.1-20141129.200235-7.jar!/org/identityconnectors/framework/common/objects/ConnectorObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/MssqldbConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4264">
+          <caret line="289" column="36" lean-forward="true" selection-start-line="289" selection-start-column="36" selection-end-line="289" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7841#7849#0" expanded="true" />
+            <element signature="e#8766#8774#0" expanded="true" />
+            <element signature="e#10964#10972#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/polygon/utilities/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="136">
           <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
           <folding />
         </state>

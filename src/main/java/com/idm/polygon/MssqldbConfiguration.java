@@ -43,6 +43,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
     public String passwordField;
 
     public String groupNameField;
+    public String groupKeyField;
 
     @Override
     public void validate() {
@@ -175,6 +176,15 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     public void setGroupNameField(String groupNameField) {
         this.groupNameField = groupNameField;
+    }
+
+    @ConfigurationProperty(order=13, displayMessageKey = "groupKeyField.display",
+            helpMessageKey = "groupKeyField.help", required = true)
+
+    public String getGroupKeyField() {return groupKeyField;}
+
+    public void setGroupKeyField(String groupKeyField) {
+        this.groupKeyField = groupKeyField;
     }
 
 
