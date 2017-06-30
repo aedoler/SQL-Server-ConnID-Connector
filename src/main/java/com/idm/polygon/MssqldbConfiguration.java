@@ -25,25 +25,24 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     private static final Logger LOG = new Logger();
 
-    //Variables are public currently for testing only
-    public String host;
-    public String dbName;
-    public String userTable;
-    public String groupTable;
-    public String user;
-    public GuardedString password;
-    public String port;
+    private String host;
+    private String dbName;
+    private String userTable;
+    private String groupTable;
+    private String user;
+    private GuardedString password;
+    private String port;
 
     //Table fields
-    public String userNameField;
-    public String firstNameField;
-    public String lastNameField;
-    public String passExpiresField;
-    public String statusField;
-    public String passwordField;
+    private String userNameField;
+    private String firstNameField;
+    private String lastNameField;
+    private String passExpiresField;
+    private String statusField;
+    private String passwordField;
 
-    public String groupNameField;
-    public String groupKeyField;
+    private String groupNameField;
+    private String groupKeyField;
 
     @Override
     public void validate() {
@@ -169,7 +168,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
         this.passwordField = passwordField;
     }
 
-    @ConfigurationProperty(order=13, displayMessageKey = "groupNameField.display",
+    @ConfigurationProperty(order=14, displayMessageKey = "groupNameField.display",
             helpMessageKey = "groupNameField.help", required = true)
 
     public String getGroupNameField() {return groupNameField;}
@@ -178,7 +177,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
         this.groupNameField = groupNameField;
     }
 
-    @ConfigurationProperty(order=13, displayMessageKey = "groupKeyField.display",
+    @ConfigurationProperty(order=15, displayMessageKey = "groupKeyField.display",
             helpMessageKey = "groupKeyField.help", required = true)
 
     public String getGroupKeyField() {return groupKeyField;}
@@ -186,9 +185,6 @@ public class MssqldbConfiguration extends AbstractConfiguration {
     public void setGroupKeyField(String groupKeyField) {
         this.groupKeyField = groupKeyField;
     }
-
-
-
 
 
 }

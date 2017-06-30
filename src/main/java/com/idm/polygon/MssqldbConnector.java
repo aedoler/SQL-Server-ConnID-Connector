@@ -51,11 +51,13 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     private MssqldbConfiguration configuration;
     private MssqldbConnection connection;
 
-    public static final String FIRST_NAME = "firstName";
-    public static final String LAST_NAME = "lastName";
+    public static final String FIRST_NAME = "nombre";
+    public static final String LAST_NAME = "apellido";
     public static final String PASS_EXP = "passExpires";
-    public static final String STATUS = "status";
-    public static final String PASS = "password";
+
+    public static final String GROUP_DESCRIP = "descripcion";
+    public static final String STATUS = "activo";
+    //public static final String PASS = "password";
 
     @Override
     public Configuration getConfiguration() {
@@ -177,8 +179,8 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.define(FIRST_NAME).setRequired(true).build());
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(LAST_NAME));
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS_EXP, Boolean.TYPE));
-        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
-        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS));
+        //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
+        //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS));
 
         builder.defineObjectClass(objectClassBuilder.build());
     }
@@ -186,6 +188,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public void buildGroupObjectClass(SchemaBuilder builder) {
         ObjectClassInfoBuilder objectClassInfoBuilder = new ObjectClassInfoBuilder();
         objectClassInfoBuilder.setType(ObjectClass.GROUP_NAME);
+        objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.build(GROUP_DESCRIP));
 
         builder.defineObjectClass(objectClassInfoBuilder.build());
     }
@@ -205,9 +208,17 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public void executeQuery(ObjectClass objectClass, String s, ResultsHandler resultsHandler, OperationOptions operationOptions) {
         LOG.write("Attempting to execute search query....");
         LOG.write("Parameters received: s: "+s+" ResultsHandler: "+resultsHandler.toString()+" operationOptions: "+operationOptions.toString());
+        String getQuery = null;
         if (objectClass.equals(ObjectClass.GROUP)) {
             LOG.write("Object class for search query is GROUP.");
-            String getGroupsQuery = "SELECT "+configuration.getGroupKeyField()+", "+configuration.getGroupNameField()+" FROM "+configuration.groupTable+";";
+            //String getGroupsQuery = "SELECT "+configuration.getGroupKeyField()+", "+configuration.getGroupNameField()+" FROM "+configuration.getGroupTable+";";
+            getQuery = "SELECT * FROM " + configuration.getGroupTable() + ";";
+        }
+        else if (objectClass.equals(ObjectClass.ACCOUNT)) {
+            LOG.write("Object class for search query is ACCOUNT.");
+            getQuery = "SELECT "+configuration.getUserNameField()+", "+configuration.getFirstNameField()+
+                    ", "+configuration.getLastNameField()+" FROM "+configuration.getUserTable()+";";
+        }
             Statement stmt = null;
             ResultSet rs = null;
             List<String> header = new ArrayList<String>();
@@ -216,10 +227,10 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                 LOG.write(stmt.toString());
             }
             catch (SQLException e) {
-                LOG.write("Problem obtaining open connection while attempting to execute GROUPS query.");
+                LOG.write("Problem obtaining open connection while attempting to execute Reconciliation query.");
             }
             try {
-                rs = stmt.executeQuery(getGroupsQuery);
+                rs = stmt.executeQuery(getQuery);
                 //take in rs and return ConnectorObject (equal to one record)
 
                 ResultSetMetaData rsmd = rs.getMetaData();
@@ -237,7 +248,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     for (int i = 1; i <= columnCount; i++ ) {
                         record.add(rs.getString(i));
                     }
-                    ConnectorObject obj = createConnectorObject(header, record);
+                    ConnectorObject obj = createConnectorObject(objectClass, header, record);
                     resultsHandler.handle(obj);
                     record.clear();
                 }
@@ -263,16 +274,15 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             SearchResult searchResult = new SearchResult(null, 0, true);
             ((SearchResultsHandler)resultsHandler).handleResult(searchResult);
             */
-        }
 
     }
 
-    public ConnectorObject createConnectorObject(List<String> header, List<String> record) {
+    public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record) {
         ConnectorObjectBuilder builder = new ConnectorObjectBuilder();
 
         LOG.write("Values received: "+record.toString());
 
-        String columnName = null;
+        //String columnName = null;
 
         for (int i = 0; i < record.size(); i++) {
             String name = header.get(i);
@@ -281,17 +291,26 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             if (StringUtil.isEmpty(value)) {
                 continue;
             }
-            if (name.equals(configuration.getGroupKeyField())) {
-                builder.setUid(value);
-                columnName = "uid";
-                continue;
+            if (objectClass.equals(ObjectClass.GROUP)) {
+                if (name.equals(configuration.getGroupKeyField())) {
+                    builder.setUid(value);
+                    //columnName = "uid";
+                    continue;
+                }
+                if (name.equals(configuration.getGroupNameField())) {
+                    builder.setName(value);
+                    //columnName = "name";
+                    continue;
+                }
             }
-            if (name.equals(configuration.getGroupNameField())) {
-                builder.setName(value);
-                columnName = "name";
-                continue;
+            else if (objectClass.equals(ObjectClass.ACCOUNT)) {
+                if (name.equals(configuration.getUserNameField())) {
+                    builder.setUid(value);
+                    builder.setName(value);
+                    continue;
+                }
             }
-            builder.addAttribute(columnName, createAtrributeValues(value));
+            builder.addAttribute(name, createAtrributeValues(value));
         }
         return builder.build();
     }

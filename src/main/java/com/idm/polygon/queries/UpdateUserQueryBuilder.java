@@ -7,6 +7,7 @@ import com.idm.polygon.utilities.Utilities;
 import org.identityconnectors.framework.common.objects.Attribute;
 import org.identityconnectors.framework.common.objects.AttributeUtil;
 import org.identityconnectors.framework.common.objects.ObjectClass;
+import org.identityconnectors.framework.common.objects.OperationalAttributes;
 
 import java.util.Set;
 
@@ -63,12 +64,17 @@ public class UpdateUserQueryBuilder {
                 if (attr.getName().equals("__PASSWORD__")) {
                     values.append(configuration.getPasswordField()+" = "+"'"+Utilities.getPlainPassword(AttributeUtil.getPasswordValue(attrs))+"'");
                 }
-                if (attr.getName().equals("firstName")) {
+                if (attr.getName().equals("nombre")) {
                     values.append(configuration.getFirstNameField()+" = "+"'"+AttributeUtil.getAsStringValue(attr)+"'");
                 }
-                if (attr.getName().equals("lastName")) {
+                if (attr.getName().equals("apellido")) {
                     values.append(configuration.getLastNameField()+" = "+"'"+AttributeUtil.getAsStringValue(attr)+"'");
                 }
+                /*if (attr.getName().equals("__ENABLE__")) {
+                    Attribute status = AttributeUtil.find(OperationalAttributes.ENABLE_NAME, attrs);
+                    boolean statusValue = ((Boolean) status.getValue().get(0)).booleanValue();
+                }
+                */
                 //values.append(attr.getName()+" = "+"'"+AttributeUtil.getAsStringValue(attr)+"'");
                 counter ++;
                 if (counter != attrs.size())

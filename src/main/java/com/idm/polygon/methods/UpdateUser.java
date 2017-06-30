@@ -99,8 +99,15 @@ public class UpdateUser {
             if (stmt != null) {
                 stmt.close();
             }
-
-            return new Uid(newUserNameValue);
         }
+        //Add user status
+        try {
+            ProcessUserStatus processUserStatus = new ProcessUserStatus(connection, configuration, attrs, newUserNameValue.toString());
+            processUserStatus.processActivation();
+        }
+        catch (Exception e) {
+            LOG.write("Failed to add user STATUS."+e.toString());
+        }
+        return new Uid(newUserNameValue);
     }
 }

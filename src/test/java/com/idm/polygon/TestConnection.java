@@ -38,7 +38,7 @@ public class TestConnection {
 
     public static void testUser() {
 
-        //Set<Attribute> attrs = ["Attribute": {"Name"="password", Value=[aedoler@gmail.com]}, Attribute: {Name=lastName, Value=[Doler]}, Attribute: {Name=__NAME__, Value=[aedoler@gmail.com]}, Attribute: {Name=firstName, Value=[Alexander]}];
+
     }
 
 }

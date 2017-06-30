@@ -2,6 +2,7 @@ package com.idm.polygon.methods;
 
 import com.idm.polygon.MssqldbConfiguration;
 import com.idm.polygon.MssqldbConnection;
+import com.idm.polygon.MssqldbConnector;
 import com.idm.polygon.queries.CreateUserQueryBuilder;
 import com.idm.polygon.utilities.Logger;
 import org.identityconnectors.common.StringUtil;
@@ -98,6 +99,16 @@ public class CreateUser {
                 }
             }
 
+            //Add user status
+            try {
+                ProcessUserStatus processUserStatus = new ProcessUserStatus(connection, configuration, attrs, objectName.toString());
+                processUserStatus.processActivation();
+            }
+            catch (Exception e) {
+                LOG.write("Failed to add user STATUS."+e.toString());
+            }
+
+
             /*
             try {
                 ResultSet rs = stmt.executeQuery(query.getQuery());
@@ -111,7 +122,6 @@ public class CreateUser {
             */
 
         }
-
 
         return new Uid(objectName);
     }

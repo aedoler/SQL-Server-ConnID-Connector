@@ -40,16 +40,16 @@ public class CreateUserQueryBuilder {
         try {
 
             for (Attribute attr : attrs) {
-                if (attr.getName().equals("firstName")) {
+                if (attr.getName().equals("nombre")) {
                     query.append(configuration.getFirstNameField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
-                } else if (attr.getName().equals("lastName")) {
+                } else if (attr.getName().equals("apellido")) {
                     query.append(configuration.getLastNameField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("passExpires")) {
                     query.append(configuration.getPassExpiresField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
-                } else if (attr.getName().equals("status")) {
+                } else if (attr.getName().equals("__ENABLE__")) {
                     query.append(configuration.getStatusField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("__PASSWORD__")) {
