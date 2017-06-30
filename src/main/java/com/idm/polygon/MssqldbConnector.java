@@ -284,12 +284,14 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             if (name.equals(configuration.getGroupKeyField())) {
                 builder.setUid(value);
                 columnName = "uid";
+                continue;
             }
             if (name.equals(configuration.getGroupNameField())) {
                 builder.setName(value);
                 columnName = "name";
+                continue;
             }
-            builder.addAttribute(name, createAtrributeValues(value));
+            builder.addAttribute(columnName, createAtrributeValues(value));
         }
         return builder.build();
     }
@@ -300,22 +302,4 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
         return values;
     }
-
-
-    /*
-    @Override
-    public FilterTranslator<FilterWhereBuilder> createFilterTranslator(
-            final ObjectClass oclass, final OperationOptions options) {
-
-        LOG.write("check the ObjectClass");
-        if (oclass == null || (!oclass.equals(ObjectClass.ACCOUNT))) {
-            throw new IllegalArgumentException("Object class is required.");
-        }
-        LOG.write("The ObjectClass is ok");
-        return new DatabaseTableFilterTranslator(this, oclass, options);
-    }
-    */
-
-
-
 }
