@@ -29,6 +29,7 @@ public class MssqldbConfiguration extends AbstractConfiguration {
     private String dbName;
     private String userTable;
     private String groupTable;
+    private String relationTable;
     private String user;
     private GuardedString password;
     private String port;
@@ -85,6 +86,15 @@ public class MssqldbConfiguration extends AbstractConfiguration {
 
     public void setUserTable(String userTable) {
         this.userTable = userTable;
+    }
+
+    @ConfigurationProperty(order=5, displayMessageKey = "relationTable.display",
+            helpMessageKey = "relationTable.help", required = true)
+
+    public String getRelationTable() {return relationTable;}
+
+    public void setRelationTable(String relationTable) {
+        this.relationTable = relationTable;
     }
 
     @ConfigurationProperty(order=5, displayMessageKey = "groupTable.display",

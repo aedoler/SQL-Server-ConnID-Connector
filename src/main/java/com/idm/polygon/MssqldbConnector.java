@@ -54,10 +54,16 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public static final String FIRST_NAME = "nombre";
     public static final String LAST_NAME = "apellido";
     public static final String PASS_EXP = "passExpires";
+    public static final String STATUS = "activo";
+    //Attribute that receives user's ID when dealing with entitlement assignment.
+    //Should receive the user's UID.
+    public static final String ACCOUNT_ASSOCIATION_ID = "userAssociationID";
 
     public static final String GROUP_DESCRIP = "descripcion";
-    public static final String STATUS = "activo";
+    public static final String GROUP_MEMBERS = "members";
+
     //public static final String PASS = "password";
+
 
     @Override
     public Configuration getConfiguration() {
@@ -87,8 +93,9 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public void dispose() {
         configuration = null;
         if (connection != null) {
+            connection.disconnect();
             connection.dispose();
-            connection = null;
+
         }
     }
 
@@ -181,6 +188,10 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS_EXP, Boolean.TYPE));
         //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
         //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS));
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(ACCOUNT_ASSOCIATION_ID, Boolean.TYPE));
+
+
+
 
         builder.defineObjectClass(objectClassBuilder.build());
     }
@@ -189,6 +200,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         ObjectClassInfoBuilder objectClassInfoBuilder = new ObjectClassInfoBuilder();
         objectClassInfoBuilder.setType(ObjectClass.GROUP_NAME);
         objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.build(GROUP_DESCRIP));
+        objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.build(GROUP_MEMBERS));
 
         builder.defineObjectClass(objectClassInfoBuilder.build());
     }
@@ -248,10 +260,11 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     for (int i = 1; i <= columnCount; i++ ) {
                         record.add(rs.getString(i));
                     }
-                    ConnectorObject obj = createConnectorObject(objectClass, header, record);
+                    ConnectorObject obj = createConnectorObject(objectClass, header, record, stmt);
                     resultsHandler.handle(obj);
                     record.clear();
                 }
+
 
                 /*
                 while (rs.next()) {
@@ -270,6 +283,16 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             catch (Exception e) {
                 LOG.write((e.toString()));
             }
+            finally {
+
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+                    } catch (SQLException e) {
+                        LOG.write(e.toString());
+                    }
+                }
+            }
             /*
             SearchResult searchResult = new SearchResult(null, 0, true);
             ((SearchResultsHandler)resultsHandler).handleResult(searchResult);
@@ -277,7 +300,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
     }
 
-    public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record) {
+    public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record, Statement stmt) {
         ConnectorObjectBuilder builder = new ConnectorObjectBuilder();
 
         LOG.write("Values received: "+record.toString());
@@ -302,6 +325,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     //columnName = "name";
                     continue;
                 }
+
             }
             else if (objectClass.equals(ObjectClass.ACCOUNT)) {
                 if (name.equals(configuration.getUserNameField())) {
@@ -312,7 +336,59 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             }
             builder.addAttribute(name, createAtrributeValues(value));
         }
+
+        //Add to group object, the accounts assigned to the group
+        try {
+            AttributeBuilder memberAttributeBuilder = new AttributeBuilder();
+            memberAttributeBuilder.setName(GROUP_MEMBERS);
+            //Get list of members
+            List<String> memberList = getGroupMembers(configuration.getGroupKeyField(), stmt);
+            for (String member : memberList) {
+                memberAttributeBuilder.addValue(member);
+            }
+            builder.addAttribute(memberAttributeBuilder.build());
+        }
+        catch (Exception e) {
+            LOG.write("Error getting list of members assigned to group on resource.");
+        }
+
         return builder.build();
+    }
+
+    private List<String> getGroupMembers(String groupKeyField, Statement stmt) {
+        //AttributeBuilder memberAttrBuilder = new AttributeBuilder();
+        //memberAttrBuilder.setName(GROUP_MEMBERS);
+
+
+        String getGroupMembersQuery = "SELECT "+configuration.getUserNameField()+" FROM "+configuration.getRelationTable()+
+                " WHERE "+configuration.getGroupKeyField()+" = "+"'"+groupKeyField+"';";
+        ResultSet rs = null;
+        List<String> members = null;
+        try {
+            rs = stmt.executeQuery(getGroupMembersQuery);
+        } catch (SQLException e) {
+            LOG.write("Error executing query to obtain group members");
+            LOG.write(e.toString());
+        }
+
+        int i = 0;
+        try {
+            while(rs.next()) {
+
+                //System.out.println(rs.getString(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
+                System.out.println(rs.getString(i));
+                members.add(rs.getString(i));
+                //memberAttrBuilder.addValue(rs.getString(i));
+                i ++;
+            }
+        } catch (SQLException e) {
+            LOG.write(e.toString());
+        }
+        catch (Exception e) {
+            LOG.write(e.toString());
+        }
+
+        return members;
     }
 
     private List<String> createAtrributeValues(String attributeValue) {

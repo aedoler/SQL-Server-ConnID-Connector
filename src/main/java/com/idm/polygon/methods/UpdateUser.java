@@ -2,6 +2,7 @@ package com.idm.polygon.methods;
 
 import com.idm.polygon.MssqldbConfiguration;
 import com.idm.polygon.MssqldbConnection;
+import com.idm.polygon.MssqldbConnector;
 import com.idm.polygon.queries.UpdateUserQueryBuilder;
 import com.idm.polygon.utilities.Logger;
 import org.identityconnectors.common.StringUtil;
@@ -59,55 +60,79 @@ public class UpdateUser {
             throw new IllegalStateException("Wrong object class");
         }
         LOG.write("Update Attributes received: " + attrs.toString());
-        LOG.write("Update user: " + uid.getUidValue());
-
-        final Name newUserName = AttributeUtil.getNameFromAttributes(attrs);
-        String newUserNameValue = null;
-
-        if (newUserName != null && StringUtil.isNotBlank(newUserName.getNameValue())) {
-            newUserNameValue = newUserName.getNameValue();
-        } else {
-            newUserNameValue = uid.getUidValue();
-        }
 
 
-        UpdateUserQueryBuilder query = new UpdateUserQueryBuilder(objectClass, newUserNameValue, configuration, attrs);
+            LOG.write("Update user: " + uid.getUidValue());
 
-        LOG.write("Attempting to UPDATE user account.");
-        Statement stmt = null;
-        try {
-            stmt = connection.getInitializedConnection().createStatement();
-            LOG.write(stmt.toString());
-        } catch (SQLException e) {
-            LOG.write("Problem obtaining open connection while attempting to update user.");
-        }
+            final Name newUserName = AttributeUtil.getNameFromAttributes(attrs);
+            String newUserNameValue = null;
 
-        LOG.write("Attempting to create UPDATE statement..." + query.getQuery());
-
-        //Insert user
-
-        try {
-            stmt.executeUpdate(query.getQuery());
-        } catch (SQLException e) {
-            LOG.write(e.toString());
-            throw new SQLException(e.getMessage());
-        } catch (Exception e) {
-            LOG.write((e.toString()));
-            throw new Exception(e.getMessage());
-        } finally {
-
-            if (stmt != null) {
-                stmt.close();
+            if (newUserName != null && StringUtil.isNotBlank(newUserName.getNameValue())) {
+                newUserNameValue = newUserName.getNameValue();
+            } else {
+                newUserNameValue = uid.getUidValue();
             }
+        if (objectClass.equals(ObjectClass.ACCOUNT)) {
+            String updateQuery = null;
+
+            //Check whether trying to assign entitlement to user or update user attributes
+            LOG.write("Checking UPDATE operation type.");
+            for (Attribute attr : attrs) {
+                if (attr.getName().equals(MssqldbConnector.ACCOUNT_ASSOCIATION_ID)) {
+                    LOG.write("Update type is ASSIGN ENTITLEMENT");
+                    updateQuery = "INSERT INTO " + configuration.getRelationTable() + " (" + configuration.getGroupKeyField() +
+                            ", " + configuration.getUserNameField() + ") VALUES ('" + newUserNameValue + "', '" +
+                            AttributeUtil.getAsStringValue(attr) + "');";
+                } else {
+                    LOG.write("Update type is USER UPDATE.");
+                    UpdateUserQueryBuilder query = new UpdateUserQueryBuilder(objectClass, newUserNameValue, configuration, attrs);
+                    updateQuery = query.getQuery();
+                }
+            }
+
+
+            LOG.write("Attempting to UPDATE user account.");
+            Statement stmt = null;
+            try {
+                stmt = connection.getInitializedConnection().createStatement();
+                LOG.write(stmt.toString());
+            } catch (SQLException e) {
+                LOG.write("Problem obtaining open connection while attempting to update user.");
+            }
+
+            LOG.write("Attempting to create UPDATE statement..." + updateQuery);
+
+            //Insert user
+
+            try {
+                stmt.executeUpdate(updateQuery);
+            } catch (SQLException e) {
+                LOG.write(e.toString());
+                throw new SQLException(e.getMessage());
+            } catch (Exception e) {
+                LOG.write((e.toString()));
+                throw new Exception(e.getMessage());
+            } finally {
+
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
+            //Add user status
+            try {
+                ProcessUserStatus processUserStatus = new ProcessUserStatus(connection, configuration, attrs, newUserNameValue.toString());
+                processUserStatus.processActivation();
+            } catch (Exception e) {
+                LOG.write("Failed to add user STATUS." + e.toString());
+            }
+
         }
-        //Add user status
-        try {
-            ProcessUserStatus processUserStatus = new ProcessUserStatus(connection, configuration, attrs, newUserNameValue.toString());
-            processUserStatus.processActivation();
+
+        else if (objectClass.equals(ObjectClass.GROUP)) {
+            LOG.equals("Object class type is GROUP");
+
         }
-        catch (Exception e) {
-            LOG.write("Failed to add user STATUS."+e.toString());
-        }
+
         return new Uid(newUserNameValue);
     }
 }
