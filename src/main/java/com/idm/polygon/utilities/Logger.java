@@ -8,7 +8,7 @@ import java.text.*;
 import java.util.*;
 
 public class Logger {
-    protected static String defaultLogFile = "";
+    protected static String defaultLogFile = "/opt/tomcat/webapps/ROOT/MsSQLConnectorLog.log";
 
 
     public Logger() {}
