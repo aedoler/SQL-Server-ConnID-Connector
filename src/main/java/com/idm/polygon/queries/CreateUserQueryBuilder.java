@@ -51,6 +51,10 @@ public class CreateUserQueryBuilder {
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("__ENABLE__")) {
                     query.append(configuration.getStatusField());
+                    values.append("'" + AttributeUtil.getAsStringValue(attr) + "'");
+                }
+                else if (attr.getName().equals("status")) {
+                    query.append(configuration.getStatusField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("__PASSWORD__")) {
                     query.append(configuration.getPasswordField());

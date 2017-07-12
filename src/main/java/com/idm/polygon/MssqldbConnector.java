@@ -18,7 +18,7 @@ package com.idm.polygon;
 
 import com.idm.polygon.methods.CreateUser;
 import com.idm.polygon.methods.DeleteUser;
-import com.idm.polygon.methods.UpdateUser;
+import com.idm.polygon.methods.UpdateObject;
 import com.idm.polygon.utilities.Logger;
 import org.identityconnectors.common.StringUtil;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
@@ -28,10 +28,8 @@ import org.identityconnectors.framework.common.objects.filter.FilterTranslator;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
-import org.identityconnectors.framework.spi.SearchResultsHandler;
 import org.identityconnectors.framework.spi.operations.*;
 import org.identityconnectors.framework.common.objects.Schema;
-
 
 
 import java.sql.ResultSet;
@@ -54,10 +52,10 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public static final String FIRST_NAME = "nombre";
     public static final String LAST_NAME = "apellido";
     public static final String PASS_EXP = "passExpires";
-    public static final String STATUS = "activo";
+    public static final String STATUS = "status";
     //Attribute that receives user's ID when dealing with entitlement assignment.
     //Should receive the user's UID.
-    public static final String ACCOUNT_ASSOCIATION_ID = "userAssociationID";
+    public static final String ACCOUNT_ASSOCIATION_ID = "userID";
 
     public static final String GROUP_DESCRIP = "descripcion";
     public static final String GROUP_MEMBERS = "members";
@@ -91,9 +89,9 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
     @Override
     public void dispose() {
+        LOG.write("Disconnecting from resource.");
         configuration = null;
         if (connection != null) {
-            connection.disconnect();
             connection.dispose();
 
         }
@@ -161,7 +159,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         }
 
         try {
-            uidResult = new UpdateUser(objectClass, connection, configuration, set, uid).update();
+            uidResult = new UpdateObject(objectClass, connection, configuration, set, uid).update();
         } catch (Exception e) {
             LOG.write("Error creating user." + e.toString());
         }
@@ -186,12 +184,9 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.define(FIRST_NAME).setRequired(true).build());
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(LAST_NAME));
         objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS_EXP, Boolean.TYPE));
-        //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(STATUS, Boolean.TYPE));
         //objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(PASS));
-        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(ACCOUNT_ASSOCIATION_ID, Boolean.TYPE));
-
-
-
+        objectClassBuilder.addAttributeInfo(AttributeInfoBuilder.build(ACCOUNT_ASSOCIATION_ID));
 
         builder.defineObjectClass(objectClassBuilder.build());
     }
@@ -200,7 +195,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         ObjectClassInfoBuilder objectClassInfoBuilder = new ObjectClassInfoBuilder();
         objectClassInfoBuilder.setType(ObjectClass.GROUP_NAME);
         objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.build(GROUP_DESCRIP));
-        objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.build(GROUP_MEMBERS));
+        objectClassInfoBuilder.addAttributeInfo(AttributeInfoBuilder.define(GROUP_MEMBERS).setMultiValued(true).build());
 
         builder.defineObjectClass(objectClassInfoBuilder.build());
     }
@@ -242,6 +237,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                 LOG.write("Problem obtaining open connection while attempting to execute Reconciliation query.");
             }
             try {
+                LOG.write("Executing query to get group objects: "+getQuery);
                 rs = stmt.executeQuery(getQuery);
                 //take in rs and return ConnectorObject (equal to one record)
 
@@ -255,15 +251,25 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                 }
                 LOG.write("Header values: " + header.toString());
 
+                //List<List> groupObjectList = new ArrayList<List>();
                 List<String> record = new ArrayList<String>();
                 while(rs.next()) {
                     for (int i = 1; i <= columnCount; i++ ) {
                         record.add(rs.getString(i));
                     }
-                    ConnectorObject obj = createConnectorObject(objectClass, header, record, stmt);
+                    //groupObjectList.add(record);
+                    ConnectorObject obj = createConnectorObject(objectClass, header, record);
                     resultsHandler.handle(obj);
                     record.clear();
                 }
+                /*
+                LOG.write("List of group objects: "+groupObjectList.toString());
+                for (List<String> groupObject : groupObjectList) {
+                    ConnectorObject obj = createConnectorObject(objectClass, header, groupObject);
+                    resultsHandler.handle(obj);
+                }
+                */
+
 
 
                 /*
@@ -300,13 +306,13 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
     }
 
-    public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record, Statement stmt) {
+    public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record) throws Exception {
         ConnectorObjectBuilder builder = new ConnectorObjectBuilder();
 
         LOG.write("Values received: "+record.toString());
 
         //String columnName = null;
-
+        /*
         for (int i = 0; i < record.size(); i++) {
             String name = header.get(i);
             String value = record.get(i);
@@ -333,37 +339,109 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     builder.setName(value);
                     continue;
                 }
+
             }
             builder.addAttribute(name, createAtrributeValues(value));
         }
+        */
+        if (objectClass.equals(ObjectClass.ACCOUNT)) {
+            try {
+                for (int i = 0; i < record.size(); i++) {
+                    String name = header.get(i);
+                    String value = record.get(i);
 
-        //Add to group object, the accounts assigned to the group
-        try {
-            AttributeBuilder memberAttributeBuilder = new AttributeBuilder();
-            memberAttributeBuilder.setName(GROUP_MEMBERS);
-            //Get list of members
-            List<String> memberList = getGroupMembers(configuration.getGroupKeyField(), stmt);
-            for (String member : memberList) {
-                memberAttributeBuilder.addValue(member);
+                    if (StringUtil.isEmpty(value)) {
+                        continue;
+                    }
+                    if (name.equals(configuration.getUserNameField())) {
+                        builder.setUid(value);
+                        builder.setName(value);
+
+                        //Add extra user ID attr for account/entitlement association
+                        AttributeBuilder userIdAttributeBuilder = new AttributeBuilder();
+                        userIdAttributeBuilder.setName(ACCOUNT_ASSOCIATION_ID);
+                        userIdAttributeBuilder.addValue(value);
+                        builder.addAttribute(userIdAttributeBuilder.build());
+                        continue;
+                    }
+                    builder.addAttribute(name, createAtrributeValues(value));
+                }
             }
-            builder.addAttribute(memberAttributeBuilder.build());
+            catch (Exception e) {
+                LOG.write("Error creating account object. "+e.toString());
+            }
+
         }
-        catch (Exception e) {
-            LOG.write("Error getting list of members assigned to group on resource.");
+
+        if (objectClass.equals(ObjectClass.GROUP)) {
+            try {
+                //Declare variable to set value of GID field, to be used to get group members list
+                String groupId = null;
+                LOG.write("Object class is group. Attempting to create group object.");
+                for (int i = 0; i < record.size(); i++) {
+                    String name = header.get(i);
+                    String value = record.get(i);
+
+                    if (StringUtil.isEmpty(value)) {
+                        continue;
+                    }
+                    if (name.equals(configuration.getGroupKeyField())) {
+                        builder.setUid(value);
+                        //columnName = "uid";
+                        groupId = value.toString();
+                        continue;
+                    }
+                    if (name.equals(configuration.getGroupNameField())) {
+                        builder.setName(value);
+                        //columnName = "name";
+                        continue;
+                    }
+                    builder.addAttribute(name, createAtrributeValues(value));
+                }
+
+                LOG.write("Value of group ID received for members query: "+groupId);
+                //Add to group object, the accounts assigned to the group
+                try {
+                    AttributeBuilder memberAttributeBuilder = new AttributeBuilder();
+                    memberAttributeBuilder.setName(GROUP_MEMBERS);
+                    //Get list of members
+                    List<String> memberList = getGroupMembers(groupId);
+                    LOG.write("List of members for group: "+memberList.toString());
+                    for (String member : memberList) {
+                        memberAttributeBuilder.addValue(member);
+                    }
+                    builder.addAttribute(memberAttributeBuilder.build());
+                } catch (Exception e) {
+                    LOG.write("Error getting list of members assigned to group on resource.");
+                }
+            }
+            catch (Exception e) {
+                LOG.write("Error creating group object. "+e.toString());
+                throw new Exception(e.getMessage());
+            }
         }
 
         return builder.build();
     }
 
-    private List<String> getGroupMembers(String groupKeyField, Statement stmt) {
+    public List<String> getGroupMembers(String groupId) {
         //AttributeBuilder memberAttrBuilder = new AttributeBuilder();
         //memberAttrBuilder.setName(GROUP_MEMBERS);
+        LOG.write("Attempting to get members for group on resource.");
 
+        LOG.write("UID of group object to search: "+groupId.toString());
+        Statement stmt = null;
+        try {
+            stmt = connection.getInitializedConnection().createStatement();
+        } catch (SQLException e) {
+            LOG.write("Error getting initialized connection.");
+        }
 
         String getGroupMembersQuery = "SELECT "+configuration.getUserNameField()+" FROM "+configuration.getRelationTable()+
-                " WHERE "+configuration.getGroupKeyField()+" = "+"'"+groupKeyField+"';";
+                " WHERE "+configuration.getGroupKeyField()+" = "+"'"+groupId+"';";
+        LOG.write("Query to get group members is: "+getGroupMembersQuery);
         ResultSet rs = null;
-        List<String> members = null;
+        List<String> members = new ArrayList<String>();
         try {
             rs = stmt.executeQuery(getGroupMembersQuery);
         } catch (SQLException e) {
@@ -371,20 +449,21 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             LOG.write(e.toString());
         }
 
-        int i = 0;
+
         try {
             while(rs.next()) {
 
                 //System.out.println(rs.getString(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-                System.out.println(rs.getString(i));
-                members.add(rs.getString(i));
+                members.add(rs.getString(1));
                 //memberAttrBuilder.addValue(rs.getString(i));
-                i ++;
+
             }
         } catch (SQLException e) {
+            LOG.write("Error creating list of group members.");
             LOG.write(e.toString());
         }
         catch (Exception e) {
+            LOG.write("Error creating list of group members.");
             LOG.write(e.toString());
         }
 

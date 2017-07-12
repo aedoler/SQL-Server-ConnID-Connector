@@ -2,12 +2,13 @@ com\idm\polygon\utilities\Logger.class
 com\idm\polygon\methods\SearchGroups.class
 com\idm\polygon\methods\ProcessUserStatus.class
 com\idm\polygon\SQLRecord.class
+com\idm\polygon\queries\ModifyUserGroupsBuilder.class
 com\idm\polygon\queries\CreateUserQueryBuilder.class
 com\idm\polygon\queries\DeleteUserQueryBuilder.class
 com\idm\polygon\methods\CreateUser.class
 com\idm\polygon\utilities\Utilities$1.class
+com\idm\polygon\methods\UpdateObject.class
 com\idm\polygon\MssqldbConnector.class
-com\idm\polygon\methods\UpdateUser.class
 com\idm\polygon\MssqldbConnector$1.class
 com\idm\polygon\queries\UpdateUserQueryBuilder.class
 com\idm\polygon\methods\DeleteUser.class

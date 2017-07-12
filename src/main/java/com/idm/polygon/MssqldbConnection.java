@@ -98,5 +98,11 @@ public class MssqldbConnection {
 
     public void dispose() {
         //todo implement
+        try {
+            Connection connection = getInitializedConnection();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

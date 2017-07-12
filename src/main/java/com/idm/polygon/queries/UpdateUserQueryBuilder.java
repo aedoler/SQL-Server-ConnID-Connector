@@ -70,6 +70,9 @@ public class UpdateUserQueryBuilder {
                 if (attr.getName().equals("apellido")) {
                     values.append(configuration.getLastNameField()+" = "+"'"+AttributeUtil.getAsStringValue(attr)+"'");
                 }
+                if (attr.getName().equals("status")) {
+                    values.append(configuration.getStatusField()+" = "+"'"+AttributeUtil.getAsStringValue(attr)+"'");
+                }
                 /*if (attr.getName().equals("__ENABLE__")) {
                     Attribute status = AttributeUtil.find(OperationalAttributes.ENABLE_NAME, attrs);
                     boolean statusValue = ((Boolean) status.getValue().get(0)).booleanValue();
