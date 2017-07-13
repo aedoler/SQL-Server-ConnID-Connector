@@ -35,4 +35,15 @@ public class DeleteUserQueryBuilder {
         }
         return deleteQuery;
     }
+
+    public String deleteUserRelationships() throws Exception {
+        String deleteQuery = null;
+        try {
+            deleteQuery = "DELETE FROM "+configuration.getRelationTable()+" WHERE "+configuration.getUserNameField()+" = "+"'"+objectName+"'"+";";
+        }
+        catch (Exception e) {
+            LOG.write("Error forming DELETE query." + e.toString());
+        }
+        return deleteQuery;
+    }
 }

@@ -161,7 +161,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         try {
             uidResult = new UpdateObject(objectClass, connection, configuration, set, uid).update();
         } catch (Exception e) {
-            LOG.write("Error creating user." + e.toString());
+            LOG.write("Error updating object." + e.toString());
         }
         return uidResult;
 
@@ -405,7 +405,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     AttributeBuilder memberAttributeBuilder = new AttributeBuilder();
                     memberAttributeBuilder.setName(GROUP_MEMBERS);
                     //Get list of members
-                    List<String> memberList = getGroupMembers(groupId);
+                    List<String> memberList = getGroupMembers(connection, configuration, groupId);
                     LOG.write("List of members for group: "+memberList.toString());
                     for (String member : memberList) {
                         memberAttributeBuilder.addValue(member);
@@ -424,21 +424,28 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
         return builder.build();
     }
 
-    public List<String> getGroupMembers(String groupId) {
+    public List<String> getGroupMembers(MssqldbConnection connection, MssqldbConfiguration configuration, String groupId) {
         //AttributeBuilder memberAttrBuilder = new AttributeBuilder();
         //memberAttrBuilder.setName(GROUP_MEMBERS);
         LOG.write("Attempting to get members for group on resource.");
 
         LOG.write("UID of group object to search: "+groupId.toString());
         Statement stmt = null;
+        LOG.write("Connection and configuration objects: "+connection.toString()+" "+configuration.toString());
         try {
             stmt = connection.getInitializedConnection().createStatement();
         } catch (SQLException e) {
-            LOG.write("Error getting initialized connection.");
+            LOG.write("Error getting initialized connection."+e.getMessage());
         }
-
-        String getGroupMembersQuery = "SELECT "+configuration.getUserNameField()+" FROM "+configuration.getRelationTable()+
-                " WHERE "+configuration.getGroupKeyField()+" = "+"'"+groupId+"';";
+        String getGroupMembersQuery = null;
+        try {
+            getGroupMembersQuery = "SELECT " + configuration.getUserNameField() + " FROM " + configuration.getRelationTable() +
+                    " WHERE " + configuration.getGroupKeyField() + " = " + "'" + groupId + "';";
+        }
+        catch (Exception e) {
+            LOG.write("Error creating query to get group members.");
+            LOG.write(e.getMessage());
+        }
         LOG.write("Query to get group members is: "+getGroupMembersQuery);
         ResultSet rs = null;
         List<String> members = new ArrayList<String>();

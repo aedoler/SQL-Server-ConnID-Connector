@@ -79,15 +79,18 @@ public class Utilities {
         return null;
     }
 
-    public static boolean checkRecordExists(String objectName, MssqldbConfiguration configuration, MssqldbConnection connection) {
-        String checkUserExistsQuery = "SELECT COUNT(1) from "+configuration.getUserTable()+" WHERE "+configuration.getUserNameField()+" = "+objectName;
-        if (checkUserExistsQuery == "1") {
-            return true;
+    public static String checkUserHasAssignment(String objectName, MssqldbConfiguration configuration) {
+        String query = null;
+
+        try {
+            query = "SELECT COUNT(1) FROM "+configuration.getRelationTable()+
+                    " WHERE "+configuration.getGroupKeyField()+" = "+"'"+objectName+"'"+";";
         }
-        else if (checkUserExistsQuery == "0") {
-            return false;
+        catch (Exception e) {
+            LOG.write("Error creating check user relationships query. "+e.getMessage());
         }
-        return false;
+
+        return query;
     }
 
 }

@@ -38,7 +38,6 @@ public class CreateUserQueryBuilder {
         int counter = 0;
 
         try {
-
             for (Attribute attr : attrs) {
                 if (attr.getName().equals("nombre")) {
                     query.append(configuration.getFirstNameField());

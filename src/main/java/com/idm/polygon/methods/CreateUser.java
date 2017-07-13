@@ -66,6 +66,7 @@ public class CreateUser {
         CreateUserQueryBuilder query = new CreateUserQueryBuilder(objectName, configuration, attrs);
 
         if (objectClass.equals(ObjectClass.ACCOUNT)) {
+            LOG.write("Checking if user already exists on resource.");
             LOG.write("Attempting to create user account.");
             Statement stmt = null;
             try {

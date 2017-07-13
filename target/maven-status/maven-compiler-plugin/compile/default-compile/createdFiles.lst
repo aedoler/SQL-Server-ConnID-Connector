@@ -1,5 +1,4 @@
 com\idm\polygon\utilities\Logger.class
-com\idm\polygon\methods\SearchGroups.class
 com\idm\polygon\methods\ProcessUserStatus.class
 com\idm\polygon\SQLRecord.class
 com\idm\polygon\queries\ModifyUserGroupsBuilder.class

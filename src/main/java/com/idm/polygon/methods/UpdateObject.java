@@ -136,20 +136,21 @@ public class UpdateObject {
             for (Attribute attr : attrs) {
                 if (attr.getName().equals(MssqldbConnector.GROUP_MEMBERS)) {
                     LOG.write("Update type is MODIFY USER ENTITLEMENT");
-                    ModifyUserGroupsBuilder query = new ModifyUserGroupsBuilder(objectClass, newObjectNameValue, configuration, attr, stmt);
+                    LOG.write("Updating members for group object: "+uid.getUidValue());
+                    ModifyUserGroupsBuilder query = new ModifyUserGroupsBuilder(connection, objectClass, uid.getUidValue(), configuration, attr);
                     try {
                         query.modifyUserGroups();
                     }
                     catch (Exception e) {
-                        LOG.write("Error while trying to modify groups" + e.toString());
+                        LOG.write("Error while trying to modify groups. " + e.getMessage());
                         throw e;
                     }
 
-                } else {
+                } /*else {
                     LOG.write("Update type is USER UPDATE.");
                     UpdateUserQueryBuilder query = new UpdateUserQueryBuilder(objectClass, newObjectNameValue, configuration, attrs);
                     updateQuery = query.getQuery();
-                }
+                }*/
             }
         }
 

@@ -1,6 +1,7 @@
 package com.idm.polygon.queries;
 
 import com.idm.polygon.MssqldbConfiguration;
+import com.idm.polygon.MssqldbConnection;
 import com.idm.polygon.MssqldbConnector;
 import com.idm.polygon.utilities.Logger;
 import org.identityconnectors.framework.common.objects.Attribute;
@@ -24,25 +25,33 @@ public class ModifyUserGroupsBuilder {
 
     Attribute attr;
     String objectName;
+    MssqldbConnection connection;
     MssqldbConfiguration configuration;
     ObjectClass objectClass;
-    Statement stmt;
 
-    public ModifyUserGroupsBuilder(ObjectClass objectClass, String objectName, MssqldbConfiguration configuration,
-                                   Attribute attr, Statement stmt) {
+
+    public ModifyUserGroupsBuilder(MssqldbConnection connection, ObjectClass objectClass, String objectName,
+                                   MssqldbConfiguration configuration, Attribute attr) {
         this.attr = attr;
         this.objectName = objectName;
         this.configuration = configuration;
         this.objectClass = objectClass;
-        this.stmt = stmt;
+        this.connection = connection;
     }
 
     public void modifyUserGroups() {
+        LOG.write("Preparing to modify group members. UID for group is: "+objectName);
         List<Object> values = attr.getValue();
         List<String> newMemberIds = new ArrayList<String>(values.size());
         List<String> membersToAdd = new ArrayList<String>();
         List<String> membersToDelete = new ArrayList<String>();
-        List<String> origMembers = new MssqldbConnector().getGroupMembers(objectName);
+        List<String> origMembers = new MssqldbConnector().getGroupMembers(connection, configuration, objectName);
+        Statement stmt = null;
+        try {
+            stmt = connection.getInitializedConnection().createStatement();
+        } catch (SQLException e) {
+            LOG.write("Error getting connection. "+e.getMessage());
+        }
         //Add new members to list
         for (Object attrValue : values) {
             newMemberIds.add((String) attrValue);
@@ -77,7 +86,7 @@ public class ModifyUserGroupsBuilder {
         for (String newMemberId : newMemberIds) {
             boolean found = false;
             for (String origMember : origMembers) {
-                if (origMember == newMemberId) {
+                if (origMember.equals(newMemberId)) {
                     found = true;
                     break;
                 }
@@ -104,6 +113,7 @@ public class ModifyUserGroupsBuilder {
                     String addUserQuery = "INSERT INTO " + configuration.getRelationTable() + " (" + configuration.getGroupKeyField() +
                             ", " + configuration.getUserNameField() + ") VALUES ('" + objectName + "', '" + member + "');";
                     LOG.write("Add user query: "+addUserQuery);
+
                     stmt.executeUpdate(addUserQuery);
                 } catch (SQLException e) {
                     LOG.write(e.toString());
@@ -114,7 +124,7 @@ public class ModifyUserGroupsBuilder {
             LOG.write("Attempting to delete members from group");
             for (String member : membersToDelete) {
                 String deleteUserQuery = "DELETE FROM "+configuration.getRelationTable()+" WHERE "+configuration.getGroupKeyField()+
-                        " = '"+objectName+"' AND WHERE "+configuration.getUserNameField()+" = '"+member+"';";
+                        " = '"+objectName+"' AND "+configuration.getUserNameField()+" = '"+member+"';";
                 LOG.write("Delete user query: "+deleteUserQuery);
                 try {
                     stmt.executeUpdate(deleteUserQuery);
