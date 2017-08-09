@@ -66,18 +66,18 @@ public class CreateUser {
         CreateUserQueryBuilder query = new CreateUserQueryBuilder(objectName, configuration, attrs);
 
         if (objectClass.equals(ObjectClass.ACCOUNT)) {
-            LOG.write("Checking if user already exists on resource.");
+
             LOG.write("Attempting to create user account.");
             Statement stmt = null;
             try {
                 stmt = connection.getInitializedConnection().createStatement();
-                LOG.write(stmt.toString());
+
             }
             catch (SQLException e) {
                 LOG.write("Problem obtaining open connection while attempting to create user.");
             }
 
-            LOG.write("Attempting to create query..." + query.getQuery());
+
 
             //Insert user
 

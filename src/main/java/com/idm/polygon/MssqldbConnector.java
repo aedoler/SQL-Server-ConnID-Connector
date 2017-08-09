@@ -83,8 +83,6 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             LOG.write("Unable to establish connection to resource!");
             throw new ConnectorException("Error in connection process:" + e.getMessage());
         }
-
-        LOG.write("Connection sucessful. Connection object is:" + this.connection.toString());
     }
 
     @Override
@@ -203,8 +201,8 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
 
     @Override
     public FilterTranslator<String> createFilterTranslator(ObjectClass objectClass, OperationOptions operationOptions) {
-        LOG.write("Inside filter translator.....");
-        LOG.write("Operation options: "+operationOptions.toString());
+
+        //LOG.write("Operation options: "+operationOptions.toString());
 
         return new AbstractFilterTranslator<String>() {
 
@@ -214,7 +212,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     @Override
     public void executeQuery(ObjectClass objectClass, String s, ResultsHandler resultsHandler, OperationOptions operationOptions) {
         LOG.write("Attempting to execute search query....");
-        LOG.write("Parameters received: s: "+s+" ResultsHandler: "+resultsHandler.toString()+" operationOptions: "+operationOptions.toString());
+        //LOG.write("Parameters received: s: "+s+" ResultsHandler: "+resultsHandler.toString()+" operationOptions: "+operationOptions.toString());
         String getQuery = null;
         if (objectClass.equals(ObjectClass.GROUP)) {
             LOG.write("Object class for search query is GROUP.");
@@ -231,13 +229,13 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             List<String> header = new ArrayList<String>();
             try {
                 stmt = connection.getInitializedConnection().createStatement();
-                LOG.write(stmt.toString());
+                //LOG.write(stmt.toString());
             }
             catch (SQLException e) {
                 LOG.write("Problem obtaining open connection while attempting to execute Reconciliation query.");
             }
             try {
-                LOG.write("Executing query to get group objects: "+getQuery);
+                //LOG.write("Executing query to get group objects: "+getQuery);
                 rs = stmt.executeQuery(getQuery);
                 //take in rs and return ConnectorObject (equal to one record)
 
@@ -249,7 +247,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     String name = rsmd.getColumnName(i);
                     header.add(name);
                 }
-                LOG.write("Header values: " + header.toString());
+                //LOG.write("Header values: " + header.toString());
 
                 //List<List> groupObjectList = new ArrayList<List>();
                 List<String> record = new ArrayList<String>();
@@ -309,7 +307,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public ConnectorObject createConnectorObject(ObjectClass objectClass, List<String> header, List<String> record) throws Exception {
         ConnectorObjectBuilder builder = new ConnectorObjectBuilder();
 
-        LOG.write("Values received: "+record.toString());
+        //LOG.write("Values received: "+record.toString());
 
         //String columnName = null;
         /*
@@ -377,7 +375,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             try {
                 //Declare variable to set value of GID field, to be used to get group members list
                 String groupId = null;
-                LOG.write("Object class is group. Attempting to create group object.");
+                //LOG.write("Object class is group. Attempting to create group object.");
                 for (int i = 0; i < record.size(); i++) {
                     String name = header.get(i);
                     String value = record.get(i);
@@ -399,14 +397,14 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
                     builder.addAttribute(name, createAtrributeValues(value));
                 }
 
-                LOG.write("Value of group ID received for members query: "+groupId);
+                //LOG.write("Value of group ID received for members query: "+groupId);
                 //Add to group object, the accounts assigned to the group
                 try {
                     AttributeBuilder memberAttributeBuilder = new AttributeBuilder();
                     memberAttributeBuilder.setName(GROUP_MEMBERS);
                     //Get list of members
                     List<String> memberList = getGroupMembers(connection, configuration, groupId);
-                    LOG.write("List of members for group: "+memberList.toString());
+                    //LOG.write("List of members for group: "+memberList.toString());
                     for (String member : memberList) {
                         memberAttributeBuilder.addValue(member);
                     }
@@ -427,11 +425,10 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
     public List<String> getGroupMembers(MssqldbConnection connection, MssqldbConfiguration configuration, String groupId) {
         //AttributeBuilder memberAttrBuilder = new AttributeBuilder();
         //memberAttrBuilder.setName(GROUP_MEMBERS);
-        LOG.write("Attempting to get members for group on resource.");
+        //LOG.write("Attempting to get members for group on resource.");
 
-        LOG.write("UID of group object to search: "+groupId.toString());
+        //LOG.write("UID of group object to search: "+groupId.toString());
         Statement stmt = null;
-        LOG.write("Connection and configuration objects: "+connection.toString()+" "+configuration.toString());
         try {
             stmt = connection.getInitializedConnection().createStatement();
         } catch (SQLException e) {
@@ -446,7 +443,7 @@ public class MssqldbConnector implements Connector, TestOp, CreateOp, DeleteOp, 
             LOG.write("Error creating query to get group members.");
             LOG.write(e.getMessage());
         }
-        LOG.write("Query to get group members is: "+getGroupMembersQuery);
+        //LOG.write("Query to get group members is: "+getGroupMembersQuery);
         ResultSet rs = null;
         List<String> members = new ArrayList<String>();
         try {

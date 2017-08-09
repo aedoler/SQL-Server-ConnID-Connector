@@ -2,10 +2,10 @@
 <testng-results skipped="0" failed="0" total="0" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="com.idm.polygon.TestConnection" duration-ms="17" started-at="2017-07-13T20:30:52Z" finished-at="2017-07-13T20:30:52Z">
+  <suite name="com.idm.polygon.TestConnection" duration-ms="0" started-at="2017-08-08T19:50:39Z" finished-at="2017-08-08T19:50:39Z">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="17" started-at="2017-07-13T20:30:52Z" finished-at="2017-07-13T20:30:52Z">
+    <test name="Command line test" duration-ms="0" started-at="2017-08-08T19:50:39Z" finished-at="2017-08-08T19:50:39Z">
     </test> <!-- Command line test -->
   </suite> <!-- com.idm.polygon.TestConnection -->
 </testng-results>

@@ -38,7 +38,7 @@ public class DeleteUser {
     public void delete() throws Exception {
         try {
             doDelete();
-            LOG.write("User successfully delete from records.");
+            LOG.write("User successfully deleted from records.");
         }
         /*
         catch (IOException e) {
@@ -74,12 +74,12 @@ public class DeleteUser {
 
             try {
                 stmt = connection.getInitializedConnection().createStatement();
-                LOG.write(stmt.toString());
+
             } catch (SQLException e) {
                 LOG.write("Problem obtaining open connection while attempting to update user.");
             }
 
-            LOG.write("Check if user to delete has existing group relationships.");
+
             try {
                 rs = stmt.executeQuery(Utilities.checkUserHasAssignment(objectName, configuration));
                 while (rs.next()) {
@@ -95,7 +95,7 @@ public class DeleteUser {
                 throw e;
             }
 
-            LOG.write("Attempting to create DELETE statement..." + query.getQuery());
+
 
             //Delete user from user records
             LOG.write("Attempting to DELETE user account.");

@@ -18,7 +18,7 @@ public class MsSQLFilterTranslator extends AbstractFilterTranslator<String>  {
 
     @Override
     protected String createEqualsExpression(EqualsFilter filter, boolean not) {
-        LOG.write("Inside createEquals FilterTranslator.");
+        
         if (not) {
             return null;
         }

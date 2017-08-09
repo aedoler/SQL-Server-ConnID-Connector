@@ -34,7 +34,7 @@ public class ProcessUserStatus {
 
     public void processActivation() {
         Attribute status = AttributeUtil.find(OperationalAttributes.ENABLE_NAME, ProcessUserStatus.attrs);
-        LOG.write("User status is: "+status.toString());
+        //LOG.write("User status is: "+status.toString());
 
         boolean statusValue = ((Boolean) status.getValue().get(0)).booleanValue();
         String updateStatusQuery = null;

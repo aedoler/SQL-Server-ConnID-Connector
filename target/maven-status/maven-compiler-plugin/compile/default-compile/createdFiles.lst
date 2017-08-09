@@ -1,6 +1,5 @@
 com\idm\polygon\utilities\Logger.class
 com\idm\polygon\methods\ProcessUserStatus.class
-com\idm\polygon\SQLRecord.class
 com\idm\polygon\queries\ModifyUserGroupsBuilder.class
 com\idm\polygon\queries\CreateUserQueryBuilder.class
 com\idm\polygon\queries\DeleteUserQueryBuilder.class

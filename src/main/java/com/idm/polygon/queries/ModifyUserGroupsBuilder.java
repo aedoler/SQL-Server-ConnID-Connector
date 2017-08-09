@@ -112,7 +112,6 @@ public class ModifyUserGroupsBuilder {
                 try {
                     String addUserQuery = "INSERT INTO " + configuration.getRelationTable() + " (" + configuration.getGroupKeyField() +
                             ", " + configuration.getUserNameField() + ") VALUES ('" + objectName + "', '" + member + "');";
-                    LOG.write("Add user query: "+addUserQuery);
 
                     stmt.executeUpdate(addUserQuery);
                 } catch (SQLException e) {
@@ -125,7 +124,6 @@ public class ModifyUserGroupsBuilder {
             for (String member : membersToDelete) {
                 String deleteUserQuery = "DELETE FROM "+configuration.getRelationTable()+" WHERE "+configuration.getGroupKeyField()+
                         " = '"+objectName+"' AND "+configuration.getUserNameField()+" = '"+member+"';";
-                LOG.write("Delete user query: "+deleteUserQuery);
                 try {
                     stmt.executeUpdate(deleteUserQuery);
                 } catch (SQLException e) {

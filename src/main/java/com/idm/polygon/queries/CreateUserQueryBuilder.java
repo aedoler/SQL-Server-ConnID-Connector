@@ -32,9 +32,6 @@ public class CreateUserQueryBuilder {
         query.append(getInsert());
         values.append(getValues());
 
-        LOG.write("Attributes received:" + attrs.toString());
-        LOG.write("Starting query creation.");
-
         int counter = 0;
 
         try {
@@ -51,8 +48,7 @@ public class CreateUserQueryBuilder {
                 } else if (attr.getName().equals("__ENABLE__")) {
                     query.append(configuration.getStatusField());
                     values.append("'" + AttributeUtil.getAsStringValue(attr) + "'");
-                }
-                else if (attr.getName().equals("status")) {
+                } else if (attr.getName().equals("status")) {
                     query.append(configuration.getStatusField());
                     values.append("'"+AttributeUtil.getAsStringValue(attr)+"'");
                 } else if (attr.getName().equals("__PASSWORD__")) {

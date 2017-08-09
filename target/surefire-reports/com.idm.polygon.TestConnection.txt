@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.idm.polygon.TestConnection
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.574 sec
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.136 sec

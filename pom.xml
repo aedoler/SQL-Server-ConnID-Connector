@@ -28,7 +28,7 @@
 
     <groupId>com.idm.polygon</groupId>
     <artifactId>connector-mssqldb</artifactId>
-    <version>1.1.3</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>mssqldb</name>

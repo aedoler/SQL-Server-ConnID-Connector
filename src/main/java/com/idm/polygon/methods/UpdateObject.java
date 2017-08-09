@@ -63,9 +63,6 @@ public class UpdateObject {
         }
         LOG.write("Update Attributes received: " + attrs.toString());
 
-
-        LOG.write("Update object: " + uid.getUidValue());
-
         final Name newObjectName = AttributeUtil.getNameFromAttributes(attrs);
         String newObjectNameValue = null;
 
@@ -75,7 +72,6 @@ public class UpdateObject {
             newObjectNameValue = uid.getUidValue();
         }
 
-        LOG.write("Attempting to get connection for update operation.");
         Statement stmt = null;
         try {
             stmt = connection.getInitializedConnection().createStatement();
@@ -97,7 +93,6 @@ public class UpdateObject {
                             AttributeUtil.getAsStringValue(attr) + "');";
                 } else {
                 */
-            LOG.write("Update type is USER UPDATE.");
             UpdateUserQueryBuilder query = new UpdateUserQueryBuilder(objectClass, newObjectNameValue, configuration, attrs);
             updateQuery = query.getQuery();
 
@@ -122,7 +117,7 @@ public class UpdateObject {
         }
 
         else if (objectClass.equals(ObjectClass.GROUP)) {
-            LOG.equals("Object class type is GROUP");
+            LOG.write("Object class type is GROUP");
             //Check whether group exisits
             /*
             try {
